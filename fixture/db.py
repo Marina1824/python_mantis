@@ -1,5 +1,5 @@
 import pymysql.cursors
-from model.project import project
+from model.project import Project
 import re
 class DbFixture:
 
@@ -13,17 +13,16 @@ class DbFixture:
 
 
 
-def get_project_list(self):
-    list = []
-    cursor = self.connection.cursor()
-    try:
-        cursor.execute \
-            ("select id, name")
-        for row in cursor:
-            (id, name) = row
-            list.append(Project(id=str(id), name=name)
-    finally:
-        cursor.close()
-    return list
-def destroy(self):
-    self.connection.close()
+    def get_project_list(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id, name from mantis_project_table")
+            for row in cursor:
+                (id, name) = row
+                list.append(Project(id=str(id), name=name))
+        finally:
+            cursor.close()
+        return list
+    def destroy(self):
+        self.connection.close()

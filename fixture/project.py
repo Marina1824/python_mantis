@@ -1,3 +1,5 @@
+from selenium.webdriver.support.wait import WebDriverWait
+
 from model.project import Project
 
 
@@ -25,9 +27,28 @@ class ProjectHelper:
         self.open_projects_page()
         self.project_cache = None
 
+    def wait_for_correct_current_url(self, desired_url):
+        wd = self.app.wd
+        wait = WebDriverWait(wd, 5)
+        wait.until(
+            lambda driver: wd.current_url.endswith(desired_url))
+
+    def open_project_by_name(self, name):
+        wd = self.app.wd
+        wd.find_element_by_link_text(name).click()
+    def delete_project_by_name(self, name):
+        wd = self.app.wd
+        self.open_projects_page()
+        self.open_project_by_name(name)
+        #submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+        self.wait_for_correct_current_url('/manage_proj_delete.php')
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+        self.open_projects_page()
+        self.group_cache = None
 
     def fill_project_form(self, project):
         wd = self.app.wd
         wd.find_element_by_name("name").click()
         wd.find_element_by_name("name").clear()
-        wd.find_element_by_name("name").send_keys("new test test")
+        wd.find_element_by_name("name").send_keys(project.name)
