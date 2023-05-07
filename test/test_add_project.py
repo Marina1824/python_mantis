@@ -1,7 +1,6 @@
 from model.project import Project
 
 def test_add_project(app, db):
-    app.session.login("administrator", "root")
     app.project.open_projects_page()
     project_new = Project(name="project new")
     old_projects = db.get_project_list()

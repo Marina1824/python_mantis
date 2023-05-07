@@ -1,5 +1,5 @@
 from selenium.webdriver.support.wait import WebDriverWait
-
+import pymysql.cursors
 from model.project import Project
 
 

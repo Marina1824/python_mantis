@@ -3,7 +3,6 @@ from model.project import Project
 import random
 
 def test_delete_some_group(app, db):
-    app.session.login("administrator", "root")
     app.project.open_projects_page()
     if len(db.get_project_list()) == 0:
         app.project.create(Project(name="test462"))
