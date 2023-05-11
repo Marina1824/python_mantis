@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
