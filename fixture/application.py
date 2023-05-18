@@ -25,7 +25,7 @@ class Application:
         self.mail = MailHelper(self)
         username = config['webadmin']['username']
         password = config['webadmin']['password']
-        self.soap = SoapHelper(self, username, password)
+        self.soap = SoapHelper(self, username, password, config['webadmin']['baseUrl'])
         self.base_url = config['webadmin']['baseUrl']
         self.project = ProjectHelper(self)
 
